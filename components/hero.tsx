@@ -100,7 +100,7 @@ export function Hero() {
         {/* Social links */}
         <div className="flex items-center justify-center gap-4">
           <a
-            href="https://github.com/jonatascavalcanti"
+            href="https://github.com/jonatascavalcanti03"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"

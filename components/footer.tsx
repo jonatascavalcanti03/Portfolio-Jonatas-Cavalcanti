@@ -57,7 +57,7 @@ export function Footer() {
           {/* Social */}
           <div className="flex items-center gap-3">
             <a
-              href="https://github.com/jonatascavalcanti"
+              href="https://github.com/jonatascavalcanti03"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
