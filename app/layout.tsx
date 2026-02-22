@@ -18,6 +18,12 @@ export const metadata: Metadata = {
   description: 'Portfolio de Jonatas Cavalcanti - Desenvolvedor Front-End Junior. HTML, CSS, JavaScript, React.js. Criando interfaces acessiveis, responsivas e com foco na experiencia do usuario.',
   keywords: ['desenvolvedor front-end', 'Jonatas Cavalcanti', 'portfolio', 'HTML', 'CSS', 'JavaScript', 'React'],
   authors: [{ name: 'Jonatas Cavalcanti' }],
+  openGraph: {
+    title: 'Jonatas Cavalcanti | Desenvolvedor Front-End',
+    description: 'Portfolio de Jonatas Cavalcanti - Desenvolvedor Front-End Junior. Criando interfaces acessiveis, responsivas e com foco na experiencia do usuario.',
+    type: 'website',
+    locale: 'pt_BR',
+  },
 }
 
 export const viewport: Viewport = {
