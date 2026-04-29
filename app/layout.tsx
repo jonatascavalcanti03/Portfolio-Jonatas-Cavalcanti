@@ -14,13 +14,13 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: 'Jonatas Cavalcanti | Desenvolvedor Front-End',
-  description: 'Portfolio de Jonatas Cavalcanti - Desenvolvedor Front-End Junior. HTML, CSS, JavaScript, React.js. Criando interfaces acessiveis, responsivas e com foco na experiencia do usuario.',
-  keywords: ['desenvolvedor front-end', 'Jonatas Cavalcanti', 'portfolio', 'HTML', 'CSS', 'JavaScript', 'React'],
+  title: 'Jonatas Cavalcanti | Desenvolvedor Front-End | React & Next.js',
+  description: 'Portfolio de Jonatas Cavalcanti - Desenvolvedor Front-End Junior especializado em React, Next.js, TypeScript e Tailwind CSS. Criando interfaces modernas, acessiveis e responsivas.',
+  keywords: ['desenvolvedor front-end', 'Jonatas Cavalcanti', 'portfolio', 'React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'JavaScript', 'Brasilia'],
   authors: [{ name: 'Jonatas Cavalcanti' }],
   openGraph: {
-    title: 'Jonatas Cavalcanti | Desenvolvedor Front-End',
-    description: 'Portfolio de Jonatas Cavalcanti - Desenvolvedor Front-End Junior. Criando interfaces acessiveis, responsivas e com foco na experiencia do usuario.',
+    title: 'Jonatas Cavalcanti | Desenvolvedor Front-End | React & Next.js',
+    description: 'Portfolio de Jonatas Cavalcanti - Desenvolvedor Front-End Junior especializado em React, Next.js, TypeScript e Tailwind CSS.',
     type: 'website',
     locale: 'pt_BR',
   },

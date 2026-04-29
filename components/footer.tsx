@@ -16,7 +16,7 @@ export function Footer() {
               {"<JC />"}
             </a>
             <p className="mt-2 max-w-xs text-sm text-muted-foreground">
-              Desenvolvedor Front-End criando interfaces acessiveis e responsivas.
+              Desenvolvedor Front-End criando interfaces modernas com React, Next.js e TypeScript.
             </p>
           </div>
 

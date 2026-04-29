@@ -17,8 +17,8 @@ export function Contact() {
           <div className="flex flex-col gap-6">
             <p className="text-base leading-relaxed text-muted-foreground">
               Estou disponivel para oportunidades como Desenvolvedor Front-End
-              Junior. Se voce tem um projeto interessante ou uma vaga aberta,
-              entre em contato!
+              Junior, com conhecimentos em React, Next.js e TypeScript. Se voce tem
+              um projeto interessante ou uma vaga aberta, entre em contato!
             </p>
 
             <div className="flex flex-col gap-4">

@@ -10,7 +10,7 @@ export function About() {
           <InfoCard
             icon={<User className="h-6 w-6" />}
             title="Resumo"
-            description="Profissional em transicao de carreira para Desenvolvedor Front-End, com base solida em HTML, CSS e JavaScript. Apos 8 anos atuando como Operador de Loja na rede Pao de Acucar, decidi seguir minha paixao pela tecnologia e desenvolvimento web."
+            description="Desenvolvedor Front-End com solida base em HTML, CSS, JavaScript, React e Next.js. Apos 8 anos como Operador de Loja na rede Pao de Acucar, decidi seguir minha paixao pela tecnologia, aplicando habilidades como proatividade, disciplina e trabalho em equipe no desenvolvimento de solucoes web modernas."
           />
           <InfoCard
             icon={<GraduationCap className="h-6 w-6" />}
@@ -20,7 +20,7 @@ export function About() {
           <InfoCard
             icon={<Target className="h-6 w-6" />}
             title="Objetivo"
-            description="Comprometido em crescer como profissional de Front-End, entregando interfaces acessiveis, responsivas e com foco na melhor experiencia do usuario. Acredito que o aprendizado continuo e a chave para o sucesso."
+            description="Busco oportunidade como Desenvolvedor Front-End Junior, onde possa aplicar meus conhecimentos em React, Next.js e TypeScript para criar interfaces modernas, acessiveis e com excelente experiencia do usuario. Comprometido com aprendizado continuo e melhores praticas."
           />
         </div>
       </div>

@@ -5,8 +5,9 @@ import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
 
 const roles = [
   "Desenvolvedor Front-End",
-  "Entusiasta de React",
-  "Criador de interfaces",
+  "React & Next.js Developer",
+  "Criador de interfaces modernas",
+  "Entusiasta de TypeScript",
 ]
 
 export function Hero() {
@@ -76,9 +77,9 @@ export function Hero() {
 
         {/* Description */}
         <p className="mx-auto mb-10 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-          Criando interfaces acessiveis, responsivas e com foco na melhor
-          experiencia do usuario. Em transicao de carreira, com paixao por
-          tecnologia e aprendizado continuo.
+          Desenvolvendo aplicacoes web modernas com React, Next.js e TypeScript.
+          Focado em criar interfaces acessiveis, responsivas e com excelente
+          experiencia do usuario.
         </p>
 
         {/* CTA Buttons */}
