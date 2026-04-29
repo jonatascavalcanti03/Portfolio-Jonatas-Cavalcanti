@@ -1,7 +1,8 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useRef } from "react"
 import { SectionHeader } from "./about"
+import { motion, useScroll, useTransform, useInView } from "framer-motion"
 
 const skills = [
   {
@@ -46,75 +47,108 @@ const skills = [
   },
 ]
 
-function AnimatedBar({ level, color }: { level: number; color: "primary" | "accent" }) {
+function AnimatedBar({ level, color, delay }: { level: number; color: "primary" | "accent"; delay: number }) {
   const ref = useRef<HTMLDivElement>(null)
-  const [width, setWidth] = useState(0)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setWidth(level), 200)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.3 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [level])
+  const isInView = useInView(ref, { once: true, margin: "-50px" })
 
   return (
     <div ref={ref} className="h-2 overflow-hidden rounded-full bg-secondary">
-      <div
-        className={`h-full rounded-full transition-all duration-1000 ease-out ${
+      <motion.div
+        initial={{ width: 0 }}
+        animate={isInView ? { width: `${level}%` } : { width: 0 }}
+        transition={{ duration: 1, delay: delay, ease: "easeOut" }}
+        className={`h-full rounded-full ${
           color === "primary" ? "bg-primary" : "bg-accent"
         }`}
-        style={{ width: `${width}%` }}
       />
     </div>
   )
 }
 
 export function Skills() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  })
+  
+  const bgY = useTransform(scrollYProgress, [0, 1], [80, -80])
+
   return (
-    <section id="skills" className="relative px-6 py-24">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute right-0 top-1/3 h-80 w-80 rounded-full bg-primary/3 blur-3xl" />
-      </div>
+    <section id="skills" ref={containerRef} className="relative px-6 py-24 overflow-hidden">
+      {/* Parallax background */}
+      <motion.div 
+        style={{ y: bgY }}
+        className="pointer-events-none absolute inset-0"
+      >
+        <div className="absolute right-0 top-1/3 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute left-0 bottom-1/4 h-64 w-64 rounded-full bg-accent/5 blur-3xl" />
+      </motion.div>
 
       <div className="relative mx-auto max-w-6xl">
-        <SectionHeader title="Competencias" subtitle="Minhas habilidades" />
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <SectionHeader title="Competencias" subtitle="Minhas habilidades" />
+        </motion.div>
 
         <div className="grid gap-8 sm:grid-cols-2">
-          {skills.map((group) => (
-            <div
+          {skills.map((group, groupIndex) => (
+            <motion.div
               key={group.category}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: groupIndex * 0.15 }}
+              whileHover={{ y: -5, transition: { duration: 0.3 } }}
               className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
             >
-              <h3
+              <motion.h3
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: groupIndex * 0.15 + 0.2 }}
                 className={`mb-6 font-mono text-lg font-semibold ${
                   group.color === "primary" ? "text-primary" : "text-accent"
                 }`}
               >
                 {group.category}
-              </h3>
+              </motion.h3>
               <div className="flex flex-col gap-5">
-                {group.items.map((skill) => (
-                  <div key={skill.name}>
+                {group.items.map((skill, skillIndex) => (
+                  <motion.div 
+                    key={skill.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: groupIndex * 0.1 + skillIndex * 0.1 }}
+                  >
                     <div className="mb-2 flex items-center justify-between">
                       <span className="text-sm font-medium text-foreground">
                         {skill.name}
                       </span>
-                      <span className="font-mono text-xs text-muted-foreground">
+                      <motion.span 
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: groupIndex * 0.1 + skillIndex * 0.1 + 0.5 }}
+                        className="font-mono text-xs text-muted-foreground"
+                      >
                         {skill.level}%
-                      </span>
+                      </motion.span>
                     </div>
-                    <AnimatedBar level={skill.level} color={group.color} />
-                  </div>
+                    <AnimatedBar 
+                      level={skill.level} 
+                      color={group.color} 
+                      delay={groupIndex * 0.1 + skillIndex * 0.1 + 0.3}
+                    />
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
