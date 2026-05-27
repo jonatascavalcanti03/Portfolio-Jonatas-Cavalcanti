@@ -52,16 +52,7 @@ export function Navigation() {
               </a>
             </li>
           ))}
-          <li>
-            <a
-              href="/curriculo-jonatas-cavalcanti.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-lg border border-primary bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-all hover:bg-primary hover:text-primary-foreground"
-            >
-              Download CV
-            </a>
-          </li>
+
         </ul>
 
         {/* Mobile Menu Button */}
@@ -89,16 +80,7 @@ export function Navigation() {
                 </a>
               </li>
             ))}
-            <li className="mt-2">
-              <a
-                href="/curriculo-jonatas-cavalcanti.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block rounded-lg border border-primary bg-primary/10 px-4 py-3 text-center text-sm font-medium text-primary transition-all hover:bg-primary hover:text-primary-foreground"
-              >
-                Download CV
-              </a>
-            </li>
+
           </ul>
         </div>
       )}

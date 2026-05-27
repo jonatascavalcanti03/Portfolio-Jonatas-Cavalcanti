@@ -1,7 +1,37 @@
+"use client"
+
 import { SectionHeader } from "./about"
-import { Mail, Phone, MapPin, Github, Linkedin, Send } from "lucide-react"
+import { Mail, Phone, MapPin, Github, Linkedin, Send, CheckCircle2, Loader2 } from "lucide-react"
+import { useState, type FormEvent } from "react"
 
 export function Contact() {
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setStatus("sending")
+
+    const form = e.currentTarget
+    const data = new FormData(form)
+
+    try {
+      const res = await fetch("https://formspree.io/f/mgoqrkrd", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      })
+
+      if (res.ok) {
+        setStatus("success")
+        form.reset()
+      } else {
+        setStatus("error")
+      }
+    } catch {
+      setStatus("error")
+    }
+  }
+
   return (
     <section id="contato" className="relative px-6 py-24">
       <div className="pointer-events-none absolute inset-0">
@@ -110,67 +140,117 @@ export function Contact() {
               Preencha o formulario abaixo e entrarei em contato o mais rapido
               possivel.
             </p>
-            <form
-              action={`mailto:jonatascavalcanti03@gmail.com`}
-              method="GET"
-              className="flex flex-col gap-4"
-            >
-              <div>
-                <label
-                  htmlFor="name"
-                  className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground"
+
+            {status === "success" ? (
+              <div className="flex flex-col items-center gap-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-8 text-center">
+                <CheckCircle2 className="h-12 w-12 text-emerald-400" />
+                <div>
+                  <h4 className="mb-1 text-lg font-bold text-emerald-400">
+                    Mensagem enviada!
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    Obrigado pelo contato. Responderei o mais rapido possivel!
+                  </p>
+                </div>
+                <button
+                  onClick={() => setStatus("idle")}
+                  className="mt-2 rounded-lg border border-border px-4 py-2 text-sm text-muted-foreground transition-all hover:border-primary/40 hover:text-primary"
                 >
-                  Nome
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  placeholder="Seu nome"
-                  className="w-full rounded-lg border border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder-muted-foreground outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary"
-                />
+                  Enviar outra mensagem
+                </button>
               </div>
-              <div>
-                <label
-                  htmlFor="subject"
-                  className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground"
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground"
+                  >
+                    Nome
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    placeholder="Seu nome"
+                    className="w-full rounded-lg border border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder-muted-foreground outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground"
+                  >
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    placeholder="seu@email.com"
+                    className="w-full rounded-lg border border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder-muted-foreground outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="subject"
+                    className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground"
+                  >
+                    Assunto
+                  </label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    required
+                    placeholder="Assunto da mensagem"
+                    className="w-full rounded-lg border border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder-muted-foreground outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground"
+                  >
+                    Mensagem
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={4}
+                    placeholder="Sua mensagem..."
+                    className="w-full resize-none rounded-lg border border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder-muted-foreground outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+
+                {status === "error" && (
+                  <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                    Erro ao enviar. Tente novamente ou envie direto para jonatascavalcanti03@gmail.com
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Assunto
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  required
-                  placeholder="Assunto da mensagem"
-                  className="w-full rounded-lg border border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder-muted-foreground outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="body"
-                  className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground"
-                >
-                  Mensagem
-                </label>
-                <textarea
-                  id="body"
-                  name="body"
-                  required
-                  rows={4}
-                  placeholder="Sua mensagem..."
-                  className="w-full resize-none rounded-lg border border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder-muted-foreground outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary"
-                />
-              </div>
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
-              >
-                <Send className="h-4 w-4" />
-                Enviar Mensagem
-              </button>
-            </form>
+                  {status === "sending" ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="h-4 w-4" />
+                      Enviar Mensagem
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>
